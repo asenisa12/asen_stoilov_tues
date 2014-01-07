@@ -63,7 +63,7 @@ size_t size = 100;
 	
 			if(error(arglist[0]) != 0){//ако foo[0] е фаил го изпълнява заедно с останалите
 				int i;
-				for (i=1; arglist[i] != NULL; i++){
+				for (i=1; arglist[i] != '\0'; i++){
 				char* const* arg = &arglist[i];
 				execv(arglist[0],arg);
 				perror("");
