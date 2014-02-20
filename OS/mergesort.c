@@ -9,7 +9,7 @@ int cmpfunc (const void * a, const void * b)
 }
 
 
-void *part2(void* data)
+void *sort(void* data)
 {
 	 qsort((int*)data,SIZE/2,sizeof(int),(void*)cmpfunc);	
 	return 0;
@@ -25,29 +25,34 @@ int main()
 		arr[j]= i;
 		j++;
 	}
-	
-	pthread_t thread;
-	int err = pthread_create(&thread,NULL,part2,(void*)arr);
-	if (err < 0)
+
+	pthread_t thread1;
+	pthread_t thread2;
+	int error = pthread_create(&thread1,NULL,sort,(void*)(arr+(SIZE/2)));
+	if (error < 0)
 		perror("");
-	qsort(arr+(SIZE/2),SIZE/2,sizeof(int),(void*)cmpfunc);
-	pthread_join(thread, NULL);
-	
+	error = pthread_create(&thread2,NULL,sort,(void*)arr);
+	if (error < 0)
+		perror("");
+	pthread_join(thread1, NULL);
+	pthread_join(thread2, NULL);
 	int count1 = 0;
 	int count2 = SIZE/2;
 	for(i=0;i<SIZE/2;i++){
-		int a = arr[count1];
-		if ()
-		arr[count1]= arr[count2];
-		arr[count2] = a;
+		if (arr[count2]<arr[count1]){
+			int a = arr[count1];
+			arr[count1]= arr[count2];
+			arr[count2] = a;
+		}
 		count1++;
 		count2++;
+	
 	}	
 	for(i=0;i<SIZE;i++){
 			printf("%d\n",arr[i]);
 	}
 
 	pthread_exit(NULL);
-	
+
 	return 0;
 }
