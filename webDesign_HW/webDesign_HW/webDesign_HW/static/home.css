@@ -1,0 +1,123 @@
+p {
+    text-align: center;
+}
+
+body {
+	background-image:url('Angel.jpg');
+	background-color:yellow;
+}
+
+#container {
+	float:center;
+    width:1230px;
+    margin:20px auto;
+}
+
+#header {
+	border: 5px 
+	solid #E9062A;
+	margin:5px auto;
+	background: #8421C7;
+	height: 50px;
+	padding: 10px;
+	float: center;
+}
+
+#sidebar {
+	margin:20px auto;
+	border: 5px solid #0000ff;
+	float: left;
+	width: 200px;
+	height: 1000px;
+	background: #D174CA;
+	padding: 150px 5px;
+}
+
+#content {
+	margin:50px;border: 5px solid #98bf21;;
+    float:right;
+    width:858px;
+    height:680px;
+	background-color:rgba(33,33,33,0.9);
+}
+
+#footer {
+	border: 5px 
+	solid #E9062A;
+    clear:both;
+    background: #8421C7;
+	height: 50px;
+	padding: 10px;
+}
+
+#nav ul{
+
+	margin:10;
+	padding:0;
+	list-style:none;
+}
+#nav ul li{ 
+	margin:0;
+	padding:10px 20px;
+	position:relative;
+	height:20px;
+	width:111.6px;
+	line-height:25px;
+	background-color:#766CEB;
+}
+#nav > ul > li {
+	float: left;
+	height:30px;
+	line-height:30px;
+	background-color:#5A4DEB;
+	border-style:solid;
+	border-width:1px;
+}
+
+#nav li > ul{
+	visibility:hidden;
+	width:200px;
+	position: absolute;
+	top:0px;
+	left:100px;
+	border-left:3px solid #000;
+}
+#nav > ul > li > ul{
+	top:50px;
+	left:0;
+}
+#nav li:hover{
+	border-style: solid;
+    border-color: #98bf21;
+	background-color:rgba(60,33,33,2);
+}
+#nav li:hover > ul{
+	visibility:visible;
+}
+
+#img{
+  margin: 2px;
+  padding: 0px; 
+  border: 5px solid #0000ff;
+  height: 140;
+  width: 200;
+
+}
+#col1{
+	float:left;	
+}
+ #img a{
+  display: inline;
+  margin: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    vertical-align: middle;
+ }
+
+#img:hover{
+	border: 5px 
+	solid #E9062A;
+}
+
+#gallery{text-align: center
+}
