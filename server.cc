@@ -11,11 +11,27 @@
 #include <unistd.h>
 #include <string.h>
 #include <arpa/inet.h>
+#include <ctype.h>
 
 using namespace std;
 
 #define OPEN_MAX 256
 #define INFTIM (-1)
+
+string get_key(string buf, string phrase, int length){
+	size_t pos = buf.find(phrase);
+	if(pos == string::npos)
+		return "";
+
+	int len = phrase.length();
+	string key = "";
+	for(int i=pos+len; i<pos+len+length; i++){
+		if(!isalnum(buf[i]))
+			return "";
+		key.push_back(buf[i]);
+	}
+	return key;
+}
 
 int initiate_server(string ip, int port){
 
@@ -78,12 +94,12 @@ int initiate_server(string ip, int port){
 			client[i].events = POLLRDNORM;
 
 			if(i>maxi)
-				maxi = i+1;
+				maxi = i;
 			clicount+=1;
 			printf("%d\n",i);
 		}
 
-		for(i=1; i< maxi; i++){
+		for(i=1; i<=maxi; i++){
 
 			if((sockfd = client[i].fd) < 0)
 				continue;
@@ -106,8 +122,10 @@ int initiate_server(string ip, int port){
 						close(client[i].fd);
 						client[i].fd = -1;
 						clicount-=1;
-					} else
-						write(client[i].fd, &buf[0], n);
+					} else{
+						string key=get_key(buf,"Sec-WebSocket-Key: ",22);
+						write(client[i].fd, &key[0], key.length());
+					}
 					if(--nready <=0)
 						break;
 				}
