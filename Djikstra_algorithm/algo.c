@@ -20,28 +20,27 @@ struct Link{
 };
 
 int find_shortest(struct Node *node,int first ,int last,int prev){
-	int paths_num=0,i,weight=INT_MAX;
-	int *weights =  (int*)malloc(node[i].link_count*sizeof(int));
+	int paths_num=0,i,weight=INT_MAX,curweight;
+
 	for(i=0;i<node[first-1].link_count;i++){
 		int id1 =node[first-1].link[i].first->id;
 		int id2 =node[first-1].link[i].second->id;
 		int id;
 
+		if(id1 == last || id2 == last){
+			curweight = node[first-1].link[i].weight;
+			if(curweight < weight) weight = curweight;
+			continue;
+		}
 		if(id1 != first &&  id1 != prev){
 			id = id1;
 		}else if(id2 != first &&  id2 != prev){
 			id = id2;
-		}else {
-			if(id1 == last || id2 == last){
-				weights[i] = node[first-1].link[i].weight;
-			}else weights[i] = -1;
-			continue;
-		}
+		}else continue;
 
-		weights[i] = node[first-1].link[i].weight + find_shortest(node,id,last,first);
-		if(weights[i]<weight) weight = weights[i]; 
+		curweight = node[first-1].link[i].weight + find_shortest(node,id,last,first);
+		if(curweight<weight) weight = curweight; 
 	}
-	free(weights);
 	return weight;
 }
 
@@ -116,6 +115,7 @@ int main(){
 		}
 	}
 
+	printf("shortest path %d\n",find_shortest(nd,1,2,-1));
 
 
 	free(link);	
